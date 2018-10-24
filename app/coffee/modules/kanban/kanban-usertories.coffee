@@ -1,5 +1,5 @@
 ###
-# Copyright (C) 2014-2018 Taiga Agile LLC
+# Copyright (C) 2014-2017 Taiga Agile LLC <taiga@taiga.io>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-# File: modules/kanban/kanban-usertories.coffee
+# File: kanban-userstories.service.coffee
 ###
 
 groupBy = @.taiga.groupBy
@@ -48,6 +48,7 @@ class KanbanUserstoriesService extends taiga.Service
         @.userstoriesRaw = userstories
         @.refreshRawOrder()
         @.refresh()
+
 
     add: (us) ->
         @.userstoriesRaw = @.userstoriesRaw.concat(us)
@@ -88,13 +89,13 @@ class KanbanUserstoriesService extends taiga.Service
 
         @.order[it.id] = it.kanban_order for it in @.userstoriesRaw
 
+
     assignOrders: (order) ->
         @.order = _.assign(@.order, order)
 
         @.refresh()
 
     move: (usList, statusId, index) ->
-
         initialLength = usList.length
 
         usByStatus = _.filter @.userstoriesRaw, (it) =>
@@ -230,12 +231,10 @@ class KanbanUserstoriesService extends taiga.Service
         userstories = _.map userstories, (usModel) =>
             us = {}
 
-            model = usModel.getAttrs()
-
             us.foldStatusChanged = @.foldStatusChanged[usModel.id]
 
-            us.model = model
-            us.images = _.filter model.attachments, (it) -> return !!it.thumbnail_card_url
+            us.model = usModel.getAttrs()
+            us.images = _.filter us.model.attachments, (it) -> return !!it.thumbnail_card_url
 
             us.id = usModel.id
             us.assigned_to = @.usersById[usModel.assigned_to]
@@ -244,15 +243,12 @@ class KanbanUserstoriesService extends taiga.Service
             usModel.assigned_users.forEach (assignedUserId) =>
                 assignedUserData = @.usersById[assignedUserId]
                 us.assigned_users.push(assignedUserData)
-
             us.colorized_tags = _.map us.model.tags, (tag) =>
                 return {name: tag[0], color: tag[1]}
-
             return us
 
         usByStatus = _.groupBy userstories, (us) ->
             return us.model.status
-
         @.usByStatus = Immutable.fromJS(usByStatus)
 
 angular.module("taigaKanban").service("tgKanbanUserstories", KanbanUserstoriesService)

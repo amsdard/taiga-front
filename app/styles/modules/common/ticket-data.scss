@@ -176,7 +176,9 @@
     label,
     .assign-issue-button,
     .item-block,
+    .item-important,
     .item-unblock,
+    .item-unimportant,
     .promote-button,
     .button-delete {
         background: $gray-light;
@@ -214,18 +216,25 @@
             background: $red-light;
         }
     }
-
     .item-block,
-    .item-unblock {
+    .item-unblock,
+    .item-important,
+    .item-unimportant {
         display: none;
         &.is-active {
             display: inline-block;
         }
     }
-    .item-unblock {
+    .item-unblock{
         background: $red-light;
         &:hover {
             background: $red;
+        }
+    }
+    .item-unimportant{
+        background: $im-light;
+        &:hover {
+            background: $im;
         }
     }
     .button-delete {

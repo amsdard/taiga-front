@@ -704,7 +704,7 @@
             flex-direction: column;
             margin: 0;
         }
-        .assigned-to-actions {
+        .assigned-to-options {
             display: block;
         }
         .remove-user {
@@ -844,6 +844,10 @@
         }
         .item-block,
         .item-unblock {
+            display: block;
+        }
+        .item-important,
+        .item-unimportant{
             display: block;
             margin: 0;
         }

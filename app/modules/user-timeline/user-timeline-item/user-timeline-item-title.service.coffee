@@ -1,5 +1,5 @@
 ###
-# Copyright (C) 2014-2018 Taiga Agile LLC
+# Copyright (C) 2014-2017 Taiga Agile LLC <taiga@taiga.io>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-# File: user-timeline/user-timeline-item/user-timeline-item-title.service.coffee
+# File: user-timeline-item-title.service.coffee
 ###
 
 unslugify = @.taiga.unslugify
@@ -89,7 +89,7 @@ class UserTimelineItemTitle
             else
                 new_value = timeline.getIn(["data", "value_diff", "value"]).first().get(1)
 
-            return $('<span>').attr('ng-non-bindable', true).text(new_value).prop('outerHTML')
+            return _.escape(new_value)
 
         sprint_name: (timeline, event) ->
             url = "project-taskboard:project=timeline.getIn(['data', 'project', 'slug']),sprint=timeline.getIn(['data', 'milestone', 'slug'])"
@@ -165,6 +165,7 @@ class UserTimelineItemTitle
 
         return $('<a>')
             .attr('tg-nav', url)
+            .attr('title', title)
             .append(span)
             .prop('outerHTML')
 
@@ -185,7 +186,8 @@ class UserTimelineItemTitle
 
     getTitle: (timeline, event, type) ->
         params = @._getParams(timeline, event, type)
-
+        # console.log(timeline)
+        # console.log(event)
         paramsKeys = {}
         Object.keys(params).forEach (key) -> paramsKeys[key] = '{{' +key + '}}'
 

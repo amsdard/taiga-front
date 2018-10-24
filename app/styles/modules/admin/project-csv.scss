@@ -11,8 +11,7 @@
         margin-bottom: 1rem;
         a {
             @include font-size(small);
-            margin-left: 1em;
-            white-space: nowrap;
+            min-width: 110px;
         }
         .icon:not(.icon-clipboard) {
             fill: currentColor;
@@ -24,6 +23,7 @@
     }
     .field-with-options {
         display: flex;
+        margin-right: 1rem;
         width: 100%;
         input {
             flex-grow: 1;

@@ -51,8 +51,8 @@ loadPlugin = (pluginPath) ->
             else
                 resolve()
 
-        fail = (jqXHR, textStatus, errorThrown) ->
-            console.error("Error loading plugin", pluginPath, errorThrown)
+        fail = (a, errorStr, e) ->
+            console.error("error loading", pluginPath, e)
 
         $.getJSON(pluginPath).then(success, fail)
 

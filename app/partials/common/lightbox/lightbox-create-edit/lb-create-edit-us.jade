@@ -36,3 +36,10 @@ div.ticket-detail-settings
             ng-class="{ 'button-red item-unblock': obj.is_blocked, 'item-block': !obj.is_blocked }"
         )
             tg-svg(svg-icon="icon-lock")
+
+    div
+        label.button-gray.is-important(
+            title="{{ 'COMMON.IMPORTANT_TITLE' | translate }}"
+            ng-class="{ 'button-red item-unblock': obj.is_important, 'item-block': !obj.is_important }"
+        )
+            tg-svg(svg-icon="icon-powerful")

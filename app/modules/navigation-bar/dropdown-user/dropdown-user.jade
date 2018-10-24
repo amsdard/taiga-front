@@ -49,9 +49,9 @@ div.navbar-dropdown.dropdown-user
                 ng-click="vm.sendFeedback()",
                 title="{{'PROJECT.NAVIGATION.FEEDBACK_TITLE' | translate}}",
                 translate="PROJECT.NAVIGATION.FEEDBACK")
-        li(ng-if="vm.customSupportUrl")
+        li
             a(
-                href="{{ vm.customSupportUrl }}",
+                href="{{ vm.supportUrl }}",
                 target="_blank",
                 title="{{'PROJECT.NAVIGATION.HELP_TITLE' | translate}}",
                 translate="PROJECT.NAVIGATION.HELP")

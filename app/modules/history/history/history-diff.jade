@@ -84,6 +84,11 @@
     include history-templates/blocked
 
 .diff-wrapper(
+    ng-if="vm.type == 'is_important'"
+)
+    include history-templates/important
+
+.diff-wrapper(
     ng-if="vm.type == 'type'"
 )
     include history-templates/history-type

@@ -39,6 +39,11 @@
         "EXTERNAL_USER": "an external user",
         "GENERIC_ERROR": "One of our Oompa Loompas says {{error}}.",
         "IOCAINE_TEXT": "This member is feeling a bit overwhelmed by this task. Will become immune to the iocaine poison over time with your help. For now, may need a hug.",
+        "IMPORTANT": "Important",
+        "IMPORTANT_TITLE": "Make this task important",
+        "IMPORTANTED": "Important",
+        "UNIMPORTANT": "Not Important",
+        "UNIMPORTANT_TITLE": "Make this task not important",
         "CLIENT_REQUIREMENT": "Client requirement is new requirement that was not previously expected and it is required to be part of the project",
         "TEAM_REQUIREMENT": "Team requirement is a requirement that must exist in the project but should have no cost for the client",
         "OWNER": "Project Owner",
@@ -210,6 +215,26 @@
             "INPUT_PLACEHOLDER": "Subject or reference",
             "TITLE_ACTION_FILTER_BUTTON": "search",
             "TITLE": "Filters",
+            "TITLE_ACTION_SEARCH": "Search",
+            "ACTION_SAVE_CUSTOM_FILTER": "save as custom filter",
+            "PLACEHOLDER_FILTER_NAME": "Write the filter name and press enter",
+            "APPLIED_FILTERS_NUM": "filters applied",
+            "CATEGORIES": {
+                "TYPE": "Type",
+                "STATUS": "Status",
+                "SEVERITY": "Severity",
+                "PRIORITIES": "Priorities",
+                "TAGS": "Tags",
+                "ASSIGNED_TO": "Assigned to",
+                "ASSIGNED_USERS": "Assigned users",
+                "ROLE": "Role",
+                "CREATED_BY": "Created by",
+                "CUSTOM_FILTERS": "Custom filters",
+                "EPIC": "Epic"
+            }
+        },
+        "USSIDEBAR": {
+            "TITLE": "User Story",
             "TITLE_ACTION_SEARCH": "Search",
             "ACTION_SAVE_CUSTOM_FILTER": "save as custom filter",
             "PLACEHOLDER_FILTER_NAME": "Write the filter name and press enter",
@@ -537,9 +562,7 @@
             "DESCRIPTION": "Download a CSV file or copy the generated URL and open it in your favourite text editor or spreadsheet to make your own project data reports. You will be able to visualize and analyze all your data easily.",
             "HELP": "How to use this on my own spreadsheet?",
             "REGENERATE_TITLE": "Change URL",
-            "REGENERATE_SUBTITLE": "You are going to change the CSV data access url. The previous url will be disabled. Are you sure?",
-            "DELETE_TITLE": "Delete URL",
-            "DELETE_SUBTITLE": "You are going to delete the current CSV data access url. Are you sure?"
+            "REGENERATE_SUBTITLE": "You going to change the CSV data access url. The previous url will be disabled. Are you sure?"
         },
         "CSV": {
             "SECTION_TITLE_EPIC": "epics reports",
@@ -550,9 +573,7 @@
             "URL_FIELD_PLACEHOLDER": "Please regenerate CSV url",
             "TITLE_REGENERATE_URL": "Regenerate CSV url",
             "ACTION_GENERATE_URL": "Generate Url",
-            "ACTION_REGENERATE": "Regenerate",
-            "TITLE_DELETE_URL": "Delete CSV url",
-            "ACTION_DELETE_URL": "Delete"
+            "ACTION_REGENERATE": "Regenerate"
         },
         "CUSTOM_FIELDS": {
             "TITLE": "Custom Fields",
@@ -569,7 +590,8 @@
             "FIELD_TYPE_RICHTEXT": "Rich text",
             "FIELD_TYPE_MULTI": "Multi-line",
             "FIELD_TYPE_DATE": "Date",
-            "FIELD_TYPE_URL": "Url"
+            "FIELD_TYPE_URL": "Url",
+            "FIELD_TYPE_ESTIMATE": "Estimate"
         },
         "PROJECT_VALUES": {
             "PAGE_TITLE": "{{sectionName}} - Project values - {{projectName}}",
@@ -1091,21 +1113,14 @@
             "LAST_SPRINT_NAME": "last sprint is <strong> {{lastSprint}} ;-) </strong>"
         },
         "CREATE_EDIT": {
-            "TASK_PLACEHOLDER_DESCRIPTION": "Please add descriptive text to help others better understand this Task",
-            "ISSUE_PLACEHOLDER_DESCRIPTION": "Please add descriptive text to help others better understand this Issue",
-            "US_PLACEHOLDER_DESCRIPTION": "Please add descriptive text to help others better understand this User Story",
-            "NEW_TASK": "New Task",
-            "NEW_ISSUE": "New Issue",
-            "NEW_US": "New User Story",
-            "EDIT_TASK": "Edit Task",
-            "EDIT_ISSUE": "Edit Issue",
-            "EDIT_US": "Edit User Story",
-            "ADD_EXISTING_ISSUE": "Add Issue to {{ targetName }}",
+            "PLACEHOLDER_DESCRIPTION": "Please add descriptive text to help others better understand this {{ objName }}",
+            "NEW": "New {{ objName }}",
+            "EDIT": "Edit {{ objName }}",
+            "ADD_EXISTING": "Add {{ objName }} to {{ targetName }}",
             "CONFIRM_CLOSE": "You have not saved changes.\nAre you sure you want to close the form?",
-            "EXISTING_ISSUE": "Existing Issue",
-            "CHOOSE_EXISTING_ISSUE": "Which Issue?",
-            "ADD_ISSUE": "Add Issue",
-            "FILTER_ISSUES": "Filter Issues"
+            "EXISTING_OBJECT": "Existing {{ objName }}",
+            "NEW_OBJECT": "New {{ objName }}",
+            "CHOOSE_EXISTING": "Which {{ objName }}?"
         },
         "DELETE_DUE_DATE": {
             "TITLE": "Delete due date",
@@ -1256,6 +1271,7 @@
         "TEAM_REQUIREMENT": "Team Requirement",
         "CLIENT_REQUIREMENT": "Client Requirement",
         "BLOCKED": "Blocked",
+        "IMPORTANT": "Important",
         "VALUES": {
             "NOT_SET": "not set",
             "UNASSIGNED": "unassigned"
@@ -1458,7 +1474,7 @@
         "FILTER_ISSUES": "Filter Issues",
         "CONFIRM_DETACH_FROM_SPRINT": {
             "TITLE": "Detach issue from Sprint",
-            "MESSAGE": "You are about to detach the issue from the sprint <strong>{{ sprintName }}<strong>"
+            "MESSAGE": "You are about to detach the issue from the sprint"
         },
         "CONFIRM_CHANGE_FROM_SPRINT": {
             "TITLE": "Attach issue to Sprint",

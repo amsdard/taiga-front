@@ -82,7 +82,7 @@
 .button-green,
 a.button-green {
     @extend %button;
-    background: $primary;
+    background: #0f0;
     &:hover,
     &.active {
         background: $primary-light;

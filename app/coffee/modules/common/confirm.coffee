@@ -1,5 +1,10 @@
 ###
-# Copyright (C) 2014-2018 Taiga Agile LLC
+# Copyright (C) 2014-2017 Andrey Antukh <niwi@niwi.nz>
+# Copyright (C) 2014-2017 Jesús Espino Garcia <jespinog@gmail.com>
+# Copyright (C) 2014-2017 David Barragán Merino <bameda@dbarragan.com>
+# Copyright (C) 2014-2017 Alejandro Alonso <alejandro.alonso@kaleidos.net>
+# Copyright (C) 2014-2017 Juan Francisco Alcántara <juanfran.alcantara@kaleidos.net>
+# Copyright (C) 2014-2017 Xavi Julian <xavier.julian@kaleidos.net>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -14,7 +19,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-# File: modules/common/confirm.coffee
+# File: modules/base/confirm.coffee
 ###
 
 taiga = @.taiga
@@ -37,9 +42,9 @@ NOTIFICATION_MSG = {
 
 
 class ConfirmService extends taiga.Service
-    @.$inject = ["$q", "lightboxService", "$tgLoading", "$translate", "$filter"]
+    @.$inject = ["$q", "lightboxService", "$tgLoading", "$translate"]
 
-    constructor: (@q, @lightboxService, @loading, @translate, @filter) ->
+    constructor: (@q, @lightboxService, @loading, @translate) ->
         bindMethods(@)
 
     hide: (el)->
@@ -54,11 +59,9 @@ class ConfirmService extends taiga.Service
         el = angular.element(lightboxSelector)
 
         # Render content
-        el.find(".title").text(title || '')
-        el.find(".subtitle").text(subtitle || '')
-        if message
-            message = @filter('textToHTML')(message)
-        el.find(".message").html(message || '')
+        el.find(".title").text(title) if title
+        el.find(".subtitle").text(subtitle) if subtitle
+        el.find(".message").html(message) if message
 
         # Assign event handlers
         el.on "click.confirm-dialog", ".button-green", debounce 2000, (event) =>

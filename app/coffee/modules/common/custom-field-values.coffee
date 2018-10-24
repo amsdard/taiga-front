@@ -1,5 +1,10 @@
 ###
-# Copyright (C) 2014-2018 Taiga Agile LLC
+# Copyright (C) 2014-2017 Andrey Antukh <niwi@niwi.nz>
+# Copyright (C) 2014-2017 Jesús Espino Garcia <jespinog@gmail.com>
+# Copyright (C) 2014-2017 David Barragán Merino <bameda@dbarragan.com>
+# Copyright (C) 2014-2017 Alejandro Alonso <alejandro.alonso@kaleidos.net>
+# Copyright (C) 2014-2017 Juan Francisco Alcántara <juanfran.alcantara@kaleidos.net>
+# Copyright (C) 2014-2017 Xavi Julian <xavier.julian@kaleidos.net>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -31,6 +36,7 @@ RICHTEXT_TYPE = "url"
 MULTILINE_TYPE = "multiline"
 DATE_TYPE = "date"
 URL_TYPE = "url"
+ESTIMATE_TYPE = "est"
 
 
 TYPE_CHOICES = [
@@ -53,6 +59,10 @@ TYPE_CHOICES = [
     {
         key: RICHTEXT_TYPE,
         name: "ADMIN.CUSTOM_FIELDS.FIELD_TYPE_RICHTEXT"
+    },
+    {
+        key: ESTIMATE_TYPE,
+        name: "ADMIN.CUSTOM_FIELDS.FIELD_TYPE_ESTIMATE"
     }
 ]
 
@@ -69,6 +79,7 @@ class CustomAttributesValuesController extends taiga.Controller
         @.customAttributes = []
         @.customAttributesValues = null
 
+
     initialize: (type, objectId) ->
         @.project = @scope.project
         @.type = type
@@ -76,6 +87,8 @@ class CustomAttributesValuesController extends taiga.Controller
         @.projectId = @scope.projectId
 
     loadCustomAttributesValues: ->
+        @.customAttributes = []
+        @.customAttributesValues = null
         return @.customAttributesValues if not @.objectId
         return @rs.customAttributesValues[@.type].get(@.objectId).then (customAttributesValues) =>
             @.customAttributes = @.project["#{@.type}_custom_attributes"]
@@ -89,6 +102,7 @@ class CustomAttributesValuesController extends taiga.Controller
 
     updateAttributeValue: (attributeValue) ->
         onSuccess = =>
+            @.loadCustomAttributesValues()
             @rootscope.$broadcast("custom-attributes-values:edit")
 
         onError = (response) =>
@@ -103,7 +117,7 @@ class CustomAttributesValuesController extends taiga.Controller
         return @repo.save(@.customAttributesValues).then(onSuccess, onError)
 
 
-CustomAttributesValuesDirective = ($templates, $storage) ->
+CustomAttributesValuesDirective = ($templates, $storage, $rootscope) ->
     template = $templates.get("custom-attributes/custom-attributes-values.html", true)
 
     collapsedHash = (type) ->
@@ -116,6 +130,10 @@ CustomAttributesValuesDirective = ($templates, $storage) ->
         $scope.collapsed = $storage.get(hash) or false
 
         bindOnce $scope, $attrs.ngModel, (value) ->
+            $ctrl.initialize($attrs.type, value.id)
+            $ctrl.loadCustomAttributesValues()
+
+        $scope.$watch $attrs.ngModel, (value) ->
             $ctrl.initialize($attrs.type, value.id)
             $ctrl.loadCustomAttributesValues()
 
@@ -141,7 +159,7 @@ CustomAttributesValuesDirective = ($templates, $storage) ->
         template: templateFn
     }
 
-module.directive("tgCustomAttributesValues", ["$tgTemplate", "$tgStorage", "$translate",
+module.directive("tgCustomAttributesValues", ["$tgTemplate", "$tgStorage", "$rootScope", "$translate",
                                               CustomAttributesValuesDirective])
 
 

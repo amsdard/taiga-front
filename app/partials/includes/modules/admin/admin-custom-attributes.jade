@@ -46,6 +46,11 @@ section.custom-fields-table.basic-table
                                 ng-switch-when="url"
                                 translate="ADMIN.CUSTOM_FIELDS.FIELD_TYPE_URL"
                             )
+                            span(
+                                ng-switch-when="est"
+                                translate="ADMIN.CUSTOM_FIELDS.FIELD_TYPE_ESTIMATE"
+                            )
+
                         .custom-options
                             .custom-options-wrapper
                                 a.js-edit-custom-field-button(

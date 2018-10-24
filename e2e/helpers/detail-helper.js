@@ -241,7 +241,6 @@ helper.history = function() {
 
 helper.block = function() {
     let el = $('tg-block-button');
-
     let obj = {
         el:el,
         block: function() {
@@ -249,6 +248,22 @@ helper.block = function() {
         },
         unblock: async function() {
             el.$('.item-unblock').click();
+        }
+    };
+
+    return obj;
+};
+
+
+helper.important = function() {
+    let el = $('tg-important-button');
+    let obj = {
+        el:el,
+        important: function() {
+            el.$('.item-important').click();
+        },
+        unimportant: async function() {
+            el.$('.item-unimportant').click();
         }
     };
 

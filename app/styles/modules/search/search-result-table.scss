@@ -7,25 +7,26 @@
         padding: .5rem;
 
         .ref {
-            margin-right: .5rem;
+            flex-basis: 30px;
+            flex-grow: 1;
+            padding: 0 1rem;
         }
         .user-stories {
-            overflow: hidden;
-            padding-right: 1rem;
-            width: 100%;
+            flex-basis: 300px;
+            flex-grow: 10;
+            flex-shrink: 1;
         }
         .status,
         .points,
         .sprint {
-            flex: 0 0 150px;
+            flex-basis: 150px;
             flex-grow: 0;
-            max-width: 150px;
             padding: 0 1rem;
             text-align: center;
         }
         .assigned-to {
-            flex: 0 0 150px;
-            max-width: 150px;
+            flex-basis: 150px;
+            flex-grow: 0;
             padding: 0 1rem;
         }
     }
@@ -41,7 +42,7 @@
         }
         span {
             display: inline-block;
-            max-width: 100%;
+            max-width: 70%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;

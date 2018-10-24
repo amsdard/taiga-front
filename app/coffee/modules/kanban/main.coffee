@@ -1,5 +1,10 @@
 ###
-# Copyright (C) 2014-2018 Taiga Agile LLC
+# Copyright (C) 2014-2017 Andrey Antukh <niwi@niwi.nz>
+# Copyright (C) 2014-2017 Jesús Espino Garcia <jespinog@gmail.com>
+# Copyright (C) 2014-2017 David Barragán Merino <bameda@dbarragan.com>
+# Copyright (C) 2014-2017 Alejandro Alonso <alejandro.alonso@kaleidos.net>
+# Copyright (C) 2014-2017 Juan Francisco Alcántara <juanfran.alcantara@kaleidos.net>
+# Copyright (C) 2014-2017 Xavi Julian <xavier.julian@kaleidos.net>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -55,7 +60,9 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
         "tgKanbanUserstories",
         "$tgStorage",
         "tgFilterRemoteStorageService",
-        "tgProjectService"
+        "tgProjectService",
+        "$tgHttp",
+        "$tgUrls"
     ]
 
     storeCustomFiltersName: 'kanban-custom-filters'
@@ -63,11 +70,13 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
 
     constructor: (@scope, @rootscope, @repo, @confirm, @rs, @rs2, @params, @q, @location,
                   @appMetaService, @navUrls, @events, @analytics, @translate, @errorHandlingService,
-                  @model, @kanbanUserstoriesService, @storage, @filterRemoteStorageService, @projectService) ->
+                  @model, @kanbanUserstoriesService, @storage, @filterRemoteStorageService, @projectService, @http, @urls) ->
         bindMethods(@)
         @kanbanUserstoriesService.reset()
         @.openFilter = false
         @.selectedUss = {}
+
+
 
         return if @.applyStoredFilters(@params.pslug, "kanban-filters")
 
@@ -77,12 +86,57 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
         taiga.defineImmutableProperty @.scope, "usByStatus", () =>
             return @kanbanUserstoriesService.usByStatus
 
+
     cleanSelectedUss: () ->
         for key of @.selectedUss
             @.selectedUss[key] = false
 
     toggleSelectedUs: (usId) ->
         @.selectedUss[usId] = !@.selectedUss[usId]
+
+    shiftSelectedUs: (usId) ->
+        if @.selectedUss[usId] != true
+            clicked_model = @kanbanUserstoriesService.getUsModel(usId)
+            clicked_status = clicked_model.status
+            clicked_order = clicked_model.kanban_order
+            closest_clicked = undefined
+            closest_number = 10000
+            for key of @.selectedUss
+                if @selectedUss[key] is true
+                    r_model = @kanbanUserstoriesService.getUsModel(parseInt(key, 10))
+                    if r_model.status is clicked_status
+                        distance = Math.abs(clicked_order - r_model.kanban_order)
+                        if distance < closest_number
+                            closest_number = distance
+                            closest_clicked = parseInt(key, 10)
+        @.cleanSelectedUss()
+        if closest_clicked != undefined
+            return @.toggleBetween(usId, closest_clicked, clicked_status)
+        return @.toggleSelectedUs(usId)
+
+    toggleBetween: (to, from, status) ->
+
+        to_order = @kanbanUserstoriesService.getUsModel(to).kanban_order
+        from_order = @kanbanUserstoriesService.getUsModel(from).kanban_order
+        if to_order > from_order
+            tmp = to_order
+            to_order = from_order
+            from_order = tmp
+        us_in_status = @kanbanUserstoriesService.getStatus(status)
+        for model in us_in_status
+            if model.kanban_order >= to_order
+                if model.kanban_order <= from_order
+                    @.selectedUss[model.id] = true
+
+
+
+    userStoryDetails: (id) ->
+        us = @kanbanUserstoriesService.getUsModel(id)
+        data = {
+            "us": us,
+            "project": @.loadProject()
+           }
+        @rootscope.$broadcast("story:details", data)
 
     firstLoad: () ->
         promise = @.loadInitialData()
@@ -98,6 +152,12 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
 
         # On Error
         promise.then null, @.onInitialDataError.bind(@)
+
+    deploy: () ->
+        promise = @http.get(@urls.resolve("project-deploy", @scope.projectId))
+        promise.then =>
+            @.loadKanban()
+
 
     setZoom: (zoomLevel, zoom) ->
         if @.zoomLevel == zoomLevel
@@ -156,6 +216,9 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
         @scope.$on("kanban:us:move", @.moveUs)
         @scope.$on("kanban:show-userstories-for-status", @.loadUserStoriesForStatus)
         @scope.$on("kanban:hide-userstories-for-status", @.hideUserStoriesForStatus)
+
+        @rootscope.$on "story:updated",(ctx,params) =>
+            @.loadUserStoriesForStatus({}, params.status)
 
     addNewUs: (type, statusId) ->
         switch type
@@ -302,7 +365,6 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
 
     loadUserStoriesForStatus: (ctx, statusId) ->
         filteredStatus = @location.search().status
-
         # if there are filters applied the action doesn't end if the statusId is not in the url
         if filteredStatus
             filteredStatus = filteredStatus.split(",").map (it) -> parseInt(it, 10)
@@ -316,10 +378,8 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
         }
 
         params = _.merge params, @location.search()
-
         return @rs.userstories.listAll(@scope.projectId, params).then (userstories) =>
             @scope.$broadcast("kanban:shown-userstories-for-status", statusId, userstories)
-
             return userstories
 
     hideUserStoriesForStatus: (ctx, statusId) ->
@@ -453,7 +513,6 @@ KanbanArchivedStatusHeaderDirective = ($rootscope, $translate, kanbanUserstories
 
         $el.on "click", (event) ->
             hidden = not hidden
-
             $scope.$apply ->
                 if hidden
                     $scope.class = "icon-watch"
@@ -467,7 +526,6 @@ KanbanArchivedStatusHeaderDirective = ($rootscope, $translate, kanbanUserstories
                     $rootscope.$broadcast("kanban:show-userstories-for-status", status.id)
 
                     kanbanUserstoriesService.showStatus(status.id)
-
         $scope.$on "$destroy", ->
             $el.off()
 
@@ -499,10 +557,10 @@ KanbanArchivedStatusIntroDirective = ($translate, kanbanUserstoriesService) ->
             updateIntroText(hasArchived)
 
         $scope.$on "kanban:shown-userstories-for-status", (ctx, statusId, userStoriesLoaded) ->
-            if statusId == status.id
-                kanbanUserstoriesService.deleteStatus(statusId)
-                kanbanUserstoriesService.add(userStoriesLoaded)
+            kanbanUserstoriesService.deleteStatus(statusId)
+            kanbanUserstoriesService.add(userStoriesLoaded)
 
+            if statusId == status.id
                 hasArchived = !!kanbanUserstoriesService.getStatus(statusId).length
                 updateIntroText(hasArchived)
 

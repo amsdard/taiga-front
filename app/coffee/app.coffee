@@ -1,5 +1,10 @@
 ###
-# Copyright (C) 2014-2018 Taiga Agile LLC
+# Copyright (C) 2014-2017 Andrey Antukh <niwi@niwi.nz>
+# Copyright (C) 2014-2017 Jesús Espino Garcia <jespinog@gmail.com>
+# Copyright (C) 2014-2017 David Barragán Merino <bameda@dbarragan.com>
+# Copyright (C) 2014-2017 Alejandro Alonso <alejandro.alonso@kaleidos.net>
+# Copyright (C) 2014-2017 Juan Francisco Alcántara <juanfran.alcantara@kaleidos.net>
+# Copyright (C) 2014-2017 Xavi Julian <xavier.julian@kaleidos.net>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -244,7 +249,7 @@ configure = ($routeProvider, $locationProvider, $httpProvider, $provide, $tgEven
             section: "backlog"
         }
     )
-
+#########################################
     # User stories
     $routeProvider.when("/project/:pslug/us/:usref",
         {
@@ -749,6 +754,7 @@ i18nInit = (lang, $translate) ->
         equalto: $translate.instant("COMMON.FORM_ERRORS.EQUAL_TO")
         linewidth: $translate.instant("COMMON.FORM_ERRORS.LINEWIDTH") # Extra validator
         pikaday: $translate.instant("COMMON.FORM_ERRORS.PIKADAY") # Extra validator
+        estimate: 'pick a good format bro'
     }
     checksley.updateMessages('default', messages)
 

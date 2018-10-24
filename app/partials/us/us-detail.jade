@@ -30,7 +30,7 @@ div.wrapper(
                     item="us"
                     project="project"
                     required-perm="modify_us"
-                    ng-class="{blocked: us.is_blocked}"
+                    ng-class="{blocked: us.is_blocked, important: us.is_important}"
                     ng-if="project && us"
                     type="text"
                 )
@@ -112,7 +112,6 @@ div.wrapper(
             div.ticket-watchers(
                 tg-watchers
                 ng-model="us"
-                item="us"
                 required-perm="modify_us"
             )
 
@@ -139,6 +138,10 @@ div.wrapper(
             tg-us-team-requirement-button(ng-model="us")
             tg-us-client-requirement-button(ng-model="us")
             tg-block-button(
+                tg-check-permission="modify_us"
+                ng-model="us"
+            )
+            tg-important-button(
                 tg-check-permission="modify_us"
                 ng-model="us"
             )

@@ -537,9 +537,7 @@
             "DESCRIPTION": "Descarrega un arxiu CSV o copia la URL generada i obrila en el teu editor de text o fulla de cálcul per a poder crear els teus propi informes. Podrás vore i analitzar totes les teues dades fàcilment.",
             "HELP": "Com utilitzar açó a la meu fulla de càlcul?",
             "REGENERATE_TITLE": "Canviar URL",
-            "REGENERATE_SUBTITLE": "You are going to change the CSV data access url. The previous url will be disabled. Are you sure?",
-            "DELETE_TITLE": "Delete URL",
-            "DELETE_SUBTITLE": "You are going to delete the current CSV data access url. Are you sure?"
+            "REGENERATE_SUBTITLE": "Vas a canviar la URL d'accés al CSV. La URL previa no funcionarà. Estàs segur?"
         },
         "CSV": {
             "SECTION_TITLE_EPIC": "epics reports",
@@ -550,9 +548,7 @@
             "URL_FIELD_PLACEHOLDER": "Per favor regenera la url del CSV",
             "TITLE_REGENERATE_URL": "Regenera l'Url del CSV",
             "ACTION_GENERATE_URL": "Genera URL",
-            "ACTION_REGENERATE": "Regenerar",
-            "TITLE_DELETE_URL": "Delete CSV url",
-            "ACTION_DELETE_URL": "Esborrar"
+            "ACTION_REGENERATE": "Regenerar"
         },
         "CUSTOM_FIELDS": {
             "TITLE": "Camps personalitzats",
@@ -1091,21 +1087,14 @@
             "LAST_SPRINT_NAME": "L'ultim sprint ès <strong> {{lastSprint}} ;-) </strong>"
         },
         "CREATE_EDIT": {
-            "TASK_PLACEHOLDER_DESCRIPTION": "Please add descriptive text to help others better understand this Task",
-            "ISSUE_PLACEHOLDER_DESCRIPTION": "Please add descriptive text to help others better understand this Issue",
-            "US_PLACEHOLDER_DESCRIPTION": "Please add descriptive text to help others better understand this User Story",
-            "NEW_TASK": "New Task",
-            "NEW_ISSUE": "New Issue",
-            "NEW_US": "New User Story",
-            "EDIT_TASK": "Edit Task",
-            "EDIT_ISSUE": "Edit Issue",
-            "EDIT_US": "Edit User Story",
-            "ADD_EXISTING_ISSUE": "Add Issue to {{ targetName }}",
+            "PLACEHOLDER_DESCRIPTION": "Please add descriptive text to help others better understand this {{ objName }}",
+            "NEW": "New {{ objName }}",
+            "EDIT": "Edit {{ objName }}",
+            "ADD_EXISTING": "Add {{ objName }} to {{ targetName }}",
             "CONFIRM_CLOSE": "You have not saved changes.\nAre you sure you want to close the form?",
-            "EXISTING_ISSUE": "Existing Issue",
-            "CHOOSE_EXISTING_ISSUE": "Which Issue?",
-            "ADD_ISSUE": "Afegir incidència",
-            "FILTER_ISSUES": "Filter Issues"
+            "EXISTING_OBJECT": "Existing {{ objName }}",
+            "NEW_OBJECT": "New {{ objName }}",
+            "CHOOSE_EXISTING": "Which {{ objName }}?"
         },
         "DELETE_DUE_DATE": {
             "TITLE": "Delete due date",
@@ -1116,7 +1105,7 @@
         },
         "REMOVE_RELATIONSHIP_WITH_EPIC": {
             "TITLE": "Remove relationship with Epic",
-            "MESSAGE": "Are you sure you want to remove the relationship of this User Story with the Epic <strong>{{epicSubject}}</strong>?"
+            "MESSAGE": "Are you sure you want to delete the relationship of this User Story with the Epic <strong>{{epicSubject}}</strong>?"
         },
         "CREATE_MEMBER": {
             "PLACEHOLDER_INVITATION_TEXT": "(Opcional) Afegix un text personalizat a la invitació. Dis-li algo divertit als nous membres. ;-)",
@@ -1458,7 +1447,7 @@
         "FILTER_ISSUES": "Filter Issues",
         "CONFIRM_DETACH_FROM_SPRINT": {
             "TITLE": "Detach issue from Sprint",
-            "MESSAGE": "You are about to detach the issue from the sprint <strong>{{ sprintName }}<strong>"
+            "MESSAGE": "You are about to detach the issue from the sprint"
         },
         "CONFIRM_CHANGE_FROM_SPRINT": {
             "TITLE": "Attach issue to Sprint",
@@ -1476,7 +1465,7 @@
                 "SUBJECT": "Descripció",
                 "VOTES": "Vots",
                 "STATUS": "Estats",
-                "MODIFIED": "Modified",
+                "CREATED": "Creat",
                 "ASSIGNED_TO": "Assignat a"
             },
             "TITLE_ACTION_CHANGE_STATUS": "Canvia l'estat",

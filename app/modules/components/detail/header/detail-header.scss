@@ -8,6 +8,19 @@
             opacity: 1;
         }
     }
+    &.important {
+        background: $im;
+        color: $white;
+        transition: all .2s linear;
+        a,
+        .detail-number,
+        .detail-subject {
+            color: $white;
+        }
+        svg {
+            fill: $white;
+        }
+    }
     &.blocked {
         background: $red;
         color: $white;
