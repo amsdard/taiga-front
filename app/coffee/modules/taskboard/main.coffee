@@ -81,8 +81,6 @@ class TaskboardController extends mixOf(taiga.Controller, taiga.PageMixin, taiga
         taiga.defineImmutableProperty @.scope, "milestoneIssues", () =>
             return @taskboardIssuesService.milestoneIssues
 
-
-
     firstLoad: () ->
         promise = @.loadInitialData()
 

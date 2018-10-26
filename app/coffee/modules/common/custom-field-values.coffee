@@ -79,7 +79,6 @@ class CustomAttributesValuesController extends taiga.Controller
         @.customAttributes = []
         @.customAttributesValues = null
 
-
     initialize: (type, objectId) ->
         @.project = @scope.project
         @.type = type
@@ -117,7 +116,7 @@ class CustomAttributesValuesController extends taiga.Controller
         return @repo.save(@.customAttributesValues).then(onSuccess, onError)
 
 
-CustomAttributesValuesDirective = ($templates, $storage, $rootscope) ->
+CustomAttributesValuesDirective = ($templates, $storage) ->
     template = $templates.get("custom-attributes/custom-attributes-values.html", true)
 
     collapsedHash = (type) ->
@@ -159,7 +158,7 @@ CustomAttributesValuesDirective = ($templates, $storage, $rootscope) ->
         template: templateFn
     }
 
-module.directive("tgCustomAttributesValues", ["$tgTemplate", "$tgStorage", "$rootScope", "$translate",
+module.directive("tgCustomAttributesValues", ["$tgTemplate", "$tgStorage", "$translate",
                                               CustomAttributesValuesDirective])
 
 

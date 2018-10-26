@@ -241,6 +241,7 @@ helper.history = function() {
 
 helper.block = function() {
     let el = $('tg-block-button');
+
     let obj = {
         el:el,
         block: function() {
@@ -253,7 +254,6 @@ helper.block = function() {
 
     return obj;
 };
-
 
 helper.important = function() {
     let el = $('tg-important-button');

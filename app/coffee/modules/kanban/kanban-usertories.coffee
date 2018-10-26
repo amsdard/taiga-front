@@ -49,7 +49,6 @@ class KanbanUserstoriesService extends taiga.Service
         @.refreshRawOrder()
         @.refresh()
 
-
     add: (us) ->
         @.userstoriesRaw = @.userstoriesRaw.concat(us)
         @.refreshRawOrder()
@@ -89,13 +88,13 @@ class KanbanUserstoriesService extends taiga.Service
 
         @.order[it.id] = it.kanban_order for it in @.userstoriesRaw
 
-
     assignOrders: (order) ->
         @.order = _.assign(@.order, order)
 
         @.refresh()
 
     move: (usList, statusId, index) ->
+
         initialLength = usList.length
 
         usByStatus = _.filter @.userstoriesRaw, (it) =>
@@ -230,7 +229,6 @@ class KanbanUserstoriesService extends taiga.Service
         userstories = @.userstoriesRaw
         userstories = _.map userstories, (usModel) =>
             us = {}
-
             us.foldStatusChanged = @.foldStatusChanged[usModel.id]
 
             us.model = usModel.getAttrs()
@@ -243,12 +241,15 @@ class KanbanUserstoriesService extends taiga.Service
             usModel.assigned_users.forEach (assignedUserId) =>
                 assignedUserData = @.usersById[assignedUserId]
                 us.assigned_users.push(assignedUserData)
+
             us.colorized_tags = _.map us.model.tags, (tag) =>
                 return {name: tag[0], color: tag[1]}
+
             return us
 
         usByStatus = _.groupBy userstories, (us) ->
             return us.model.status
+
         @.usByStatus = Immutable.fromJS(usByStatus)
 
 angular.module("taigaKanban").service("tgKanbanUserstories", KanbanUserstoriesService)

@@ -1,10 +1,5 @@
 ###
-# Copyright (C) 2014-2017 Andrey Antukh <niwi@niwi.nz>
-# Copyright (C) 2014-2017 Jesús Espino Garcia <jespinog@gmail.com>
-# Copyright (C) 2014-2017 David Barragán Merino <bameda@dbarragan.com>
-# Copyright (C) 2014-2017 Alejandro Alonso <alejandro.alonso@kaleidos.net>
-# Copyright (C) 2014-2017 Juan Francisco Alcántara <juanfran.alcantara@kaleidos.net>
-# Copyright (C) 2014-2017 Xavi Julian <xavier.julian@kaleidos.net>
+# Copyright (C) 2014-2018 Taiga Agile LLC
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -41,7 +36,7 @@ class PageMixin
         @scope.activeUsersById = groupBy(@scope.activeUsers, (e) -> e.id)
 
         @scope.users = _.sortBy(users, "full_name_display")
-        @scope.usersById = groupBy(@scope.users, (e) -> e.id)
+        @scope.usersById = groupBy(users, (e) -> e.id)
 
         @scope.roles = _.sortBy(roles, "order")
         computableRoles = _(@scope.project.members).map("role").uniq().value()

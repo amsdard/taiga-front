@@ -8,7 +8,7 @@ helper.getFilter = function() {
 
 helper.open = async function() {
     let isPresent = await $('.e2e-open-filter').isPresent();
-    console.log("XDDDDDDDDDDDDDDDDDD:(((((((((((((")
+
     if(isPresent) {
         $('.e2e-open-filter').click();
     } else {
@@ -36,6 +36,7 @@ helper.open = async function() {
     var filter = helper.getFilter();
     return utils.common.transitionend('tg-userstory-sidebar');
 };
+
 
 helper.byText = function(text) {
     return $('.e2e-filter-q').sendKeys(text);

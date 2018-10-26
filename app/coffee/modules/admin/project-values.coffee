@@ -571,7 +571,7 @@ TYPE_CHOICES = [
     {
         key: URL_TYPE,
         name: "ADMIN.CUSTOM_FIELDS.FIELD_TYPE_URL"
-    }
+    },
     {
         key: ESTIMATE_TYPE,
         name: "ADMIN.CUSTOM_FIELDS.FIELD_TYPE_ESTIMATE"

@@ -7,7 +7,7 @@ div.sidebar(
     ui-if="sidebarOpen"
 )
     div.title
-            {{ 'COMMON.USSIDEBAR.TITLE' | translate }}
+        {{ 'COMMON.USSIDEBAR.TITLE' | translate }}
 
 
     div.subject(
@@ -18,7 +18,7 @@ div.sidebar(
             tg-ctrl-click-disable
             title="#{{ us.ref }} {{ us.subject }}"
         )
-            # {{ us.ref }} - {{ us.subject }}
+             # {{ us.ref }} - {{ us.subject }}
 
         div.closing
             label.close(
@@ -27,20 +27,12 @@ div.sidebar(
             )
                 tg-svg.close(svg-icon="icon-close")
 
-    .subheader
-            tg-tag-line.tags-block(
-                ng-if="us && project"
-                project="project"
-                item="us"
-                permissions="modify_us"
-            )
-
     div.desc
         textarea.box(
             id="description-box"
             placeholder="Empty description"
         )
-            {{ us.description }}
+             {{ us.description }}
         label.save-desc(
                 title="Save"
         )

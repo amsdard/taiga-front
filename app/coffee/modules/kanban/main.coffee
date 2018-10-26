@@ -76,8 +76,6 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
         @.openFilter = false
         @.selectedUss = {}
 
-
-
         return if @.applyStoredFilters(@params.pslug, "kanban-filters")
 
         @scope.sectionName = @translate.instant("KANBAN.SECTION_NAME")
@@ -85,7 +83,6 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
 
         taiga.defineImmutableProperty @.scope, "usByStatus", () =>
             return @kanbanUserstoriesService.usByStatus
-
 
     cleanSelectedUss: () ->
         for key of @.selectedUss
@@ -138,6 +135,11 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
            }
         @rootscope.$broadcast("story:details", data)
 
+    deploy: () ->
+        promise = @http.get(@urls.resolve("project-deploy", @scope.projectId))
+        promise.then =>
+            @.loadKanban()
+
     firstLoad: () ->
         promise = @.loadInitialData()
 
@@ -152,12 +154,6 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
 
         # On Error
         promise.then null, @.onInitialDataError.bind(@)
-
-    deploy: () ->
-        promise = @http.get(@urls.resolve("project-deploy", @scope.projectId))
-        promise.then =>
-            @.loadKanban()
-
 
     setZoom: (zoomLevel, zoom) ->
         if @.zoomLevel == zoomLevel
@@ -365,6 +361,7 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
 
     loadUserStoriesForStatus: (ctx, statusId) ->
         filteredStatus = @location.search().status
+
         # if there are filters applied the action doesn't end if the statusId is not in the url
         if filteredStatus
             filteredStatus = filteredStatus.split(",").map (it) -> parseInt(it, 10)
@@ -378,8 +375,10 @@ class KanbanController extends mixOf(taiga.Controller, taiga.PageMixin, taiga.Fi
         }
 
         params = _.merge params, @location.search()
+
         return @rs.userstories.listAll(@scope.projectId, params).then (userstories) =>
             @scope.$broadcast("kanban:shown-userstories-for-status", statusId, userstories)
+
             return userstories
 
     hideUserStoriesForStatus: (ctx, statusId) ->
@@ -513,6 +512,7 @@ KanbanArchivedStatusHeaderDirective = ($rootscope, $translate, kanbanUserstories
 
         $el.on "click", (event) ->
             hidden = not hidden
+
             $scope.$apply ->
                 if hidden
                     $scope.class = "icon-watch"
@@ -526,6 +526,7 @@ KanbanArchivedStatusHeaderDirective = ($rootscope, $translate, kanbanUserstories
                     $rootscope.$broadcast("kanban:show-userstories-for-status", status.id)
 
                     kanbanUserstoriesService.showStatus(status.id)
+
         $scope.$on "$destroy", ->
             $el.off()
 

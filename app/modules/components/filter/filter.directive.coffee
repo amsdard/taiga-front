@@ -28,6 +28,7 @@ FilterDirective = () ->
 
         attrs.$observe "open", (open) ->
             open = scope.$eval(open)
+
             if open
                 el.addClass('open')
             else
