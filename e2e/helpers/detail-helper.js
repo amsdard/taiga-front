@@ -255,6 +255,21 @@ helper.block = function() {
     return obj;
 };
 
+helper.important = function() {
+    let el = $('tg-important-button');
+    let obj = {
+        el:el,
+        important: function() {
+            el.$('.item-important').click();
+        },
+        unimportant: async function() {
+            el.$('.item-unimportant').click();
+        }
+    };
+
+    return obj;
+};
+
 helper.blockLightbox = function() {
     let el = $('div[tg-lb-block]');
 

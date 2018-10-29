@@ -39,6 +39,11 @@
         "EXTERNAL_USER": "an external user",
         "GENERIC_ERROR": "One of our Oompa Loompas says {{error}}.",
         "IOCAINE_TEXT": "This member is feeling a bit overwhelmed by this task. Will become immune to the iocaine poison over time with your help. For now, may need a hug.",
+        "IMPORTANT": "Important",
+        "IMPORTANT_TITLE": "Make this task important",
+        "IMPORTANTED": "Important",
+        "UNIMPORTANT": "Not Important",
+        "UNIMPORTANT_TITLE": "Make this task not important",
         "CLIENT_REQUIREMENT": "Client requirement is new requirement that was not previously expected and it is required to be part of the project",
         "TEAM_REQUIREMENT": "Team requirement is a requirement that must exist in the project but should have no cost for the client",
         "OWNER": "Project Owner",
@@ -210,6 +215,26 @@
             "INPUT_PLACEHOLDER": "Subject or reference",
             "TITLE_ACTION_FILTER_BUTTON": "search",
             "TITLE": "Filters",
+            "TITLE_ACTION_SEARCH": "Search",
+            "ACTION_SAVE_CUSTOM_FILTER": "save as custom filter",
+            "PLACEHOLDER_FILTER_NAME": "Write the filter name and press enter",
+            "APPLIED_FILTERS_NUM": "filters applied",
+            "CATEGORIES": {
+                "TYPE": "Type",
+                "STATUS": "Status",
+                "SEVERITY": "Severity",
+                "PRIORITIES": "Priorities",
+                "TAGS": "Tags",
+                "ASSIGNED_TO": "Assigned to",
+                "ASSIGNED_USERS": "Assigned users",
+                "ROLE": "Role",
+                "CREATED_BY": "Created by",
+                "CUSTOM_FILTERS": "Custom filters",
+                "EPIC": "Epic"
+            }
+        },
+        "USSIDEBAR": {
+            "TITLE": "User Story",
             "TITLE_ACTION_SEARCH": "Search",
             "ACTION_SAVE_CUSTOM_FILTER": "save as custom filter",
             "PLACEHOLDER_FILTER_NAME": "Write the filter name and press enter",
@@ -569,7 +594,8 @@
             "FIELD_TYPE_RICHTEXT": "Rich text",
             "FIELD_TYPE_MULTI": "Multi-line",
             "FIELD_TYPE_DATE": "Date",
-            "FIELD_TYPE_URL": "Url"
+            "FIELD_TYPE_URL": "Url",
+            "FIELD_TYPE_ESTIMATE": "Estimate"
         },
         "PROJECT_VALUES": {
             "PAGE_TITLE": "{{sectionName}} - Project values - {{projectName}}",
@@ -1256,6 +1282,7 @@
         "TEAM_REQUIREMENT": "Team Requirement",
         "CLIENT_REQUIREMENT": "Client Requirement",
         "BLOCKED": "Blocked",
+        "IMPORTANT": "Important",
         "VALUES": {
             "NOT_SET": "not set",
             "UNASSIGNED": "unassigned"

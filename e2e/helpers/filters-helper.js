@@ -20,6 +20,24 @@ helper.open = async function() {
     return utils.common.transitionend('tg-filter');
 };
 
+helper.getSidebar = function() {
+    return $('tg-userstory-sidebar');
+};
+
+helper.open = async function() {
+    let isPresent = await $('.e2e-open-sidebar').isPresent();
+    console.log("qtas")
+    if(isPresent) {
+        $('.e2e-open-sidebar').click();
+    } else {
+        return;
+    }
+
+    var filter = helper.getFilter();
+    return utils.common.transitionend('tg-userstory-sidebar');
+};
+
+
 helper.byText = function(text) {
     return $('.e2e-filter-q').sendKeys(text);
 };

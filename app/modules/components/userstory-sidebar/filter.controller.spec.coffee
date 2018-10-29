@@ -53,35 +53,3 @@ describe "Filter", ->
 
         expect(isOpen).to.be.true
 
-    it "save custom filter", () ->
-        ctrl = $controller("Filter")
-        ctrl.customFilterName = "custom-name"
-        ctrl.customFilterForm = true
-        ctrl.onSaveCustomFilter = sinon.spy()
-
-        ctrl.saveCustomFilter()
-
-        expect(ctrl.onSaveCustomFilter).to.have.been.calledWith({name: "custom-name"})
-        expect(ctrl.customFilterForm).to.be.false
-        expect(ctrl.opened).to.be.equal('custom-filter')
-        expect(ctrl.customFilterName).to.be.equal('')
-
-    it "is filter selected", () ->
-        ctrl = $controller("Filter")
-        ctrl.selectedFilters = [
-            {id: 1, dataType: "1"},
-            {id: 2, dataType: "2"},
-            {id: 3, dataType: "3"}
-        ]
-
-        filterCategory = {dataType: "x"}
-        filter = {id: 1}
-        isFilterSelected = ctrl.isFilterSelected(filterCategory, filter)
-
-        expect(isFilterSelected).to.be.false
-
-        filterCategory = {dataType: "1"}
-        filter = {id: 1}
-        isFilterSelected = ctrl.isFilterSelected(filterCategory, filter)
-
-        expect(isFilterSelected).to.be.true

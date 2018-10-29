@@ -1,5 +1,5 @@
 ###
-# Copyright (C) 2014-2018 Taiga Agile LLC
+# Copyright (C) 2014-2017 Taiga Agile LLC <taiga@taiga.io>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -14,10 +14,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-# File: components/attachment-link/attachment-link.directive.coffee
+# File: attachment-link.directive.coffee
 ###
 
-AttachmentLinkDirective = ($parse, attachmentsPreviewService, lightboxService) ->
+AttachmentLinkDirective = ($parse, attachmentsPreviewService, lightboxService, lightboxFactory) ->
     link = (scope, el, attrs) ->
         attachment = $parse(attrs.tgAttachmentLink)(scope)
 
@@ -26,8 +26,9 @@ AttachmentLinkDirective = ($parse, attachmentsPreviewService, lightboxService) -
                 event.preventDefault()
 
                 scope.$apply ->
-                    lightboxService.open($('tg-attachments-preview'))
-                    attachmentsPreviewService.fileId = attachment.getIn(['file', 'id'])
+                    window.open(attachment.getIn(['file', 'url']))
+#                    lightboxService.open($('tg-attachments-preview'))
+#                    attachmentsPreviewService.fileId = attachment.getIn(['file', 'id'])
             else if taiga.isPdf(attachment.getIn(['file', 'name']))
                 event.preventDefault()
                 window.open(attachment.getIn(['file', 'url']))
@@ -40,7 +41,8 @@ AttachmentLinkDirective = ($parse, attachmentsPreviewService, lightboxService) -
 AttachmentLinkDirective.$inject = [
     "$parse",
     "tgAttachmentsPreviewService",
-    "lightboxService"
+    "lightboxService",
+    "tgLightboxFactory"
 ]
 
 angular.module("taigaComponents").directive("tgAttachmentLink", AttachmentLinkDirective)

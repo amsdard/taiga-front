@@ -1,5 +1,10 @@
 ###
-# Copyright (C) 2014-2018 Taiga Agile LLC
+# Copyright (C) 2014-2017 Andrey Antukh <niwi@niwi.nz>
+# Copyright (C) 2014-2017 Jesús Espino Garcia <jespinog@gmail.com>
+# Copyright (C) 2014-2017 David Barragán Merino <bameda@dbarragan.com>
+# Copyright (C) 2014-2017 Alejandro Alonso <alejandro.alonso@kaleidos.net>
+# Copyright (C) 2014-2017 Juan Francisco Alcántara <juanfran.alcantara@kaleidos.net>
+# Copyright (C) 2014-2017 Xavi Julian <xavier.julian@kaleidos.net>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -71,6 +76,7 @@ urls = {
     "project-watch": "/projects/%s/watch"
     "project-unwatch": "/projects/%s/unwatch"
     "project-contact": "contact"
+    "project-deploy" : "/projects/%s/deploy_project"
     "project-transfer-validate-token": "/projects/%s/transfer_validate_token"
     "project-transfer-accept": "/projects/%s/transfer_accept"
     "project-transfer-reject": "/projects/%s/transfer_reject"

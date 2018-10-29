@@ -19,6 +19,7 @@
 
 taiga = @.taiga
 bindOnce = @.taiga.bindOnce
+normalizeString = @.taiga.normalizeString
 
 module = angular.module("taigaCommon")
 
@@ -343,6 +344,66 @@ BlockButtonDirective = ($rootscope, $loading, $template) ->
 
 module.directive("tgBlockButton", ["$rootScope", "$tgLoading", "$tgTemplate", BlockButtonDirective])
 
+
+#############################################################################
+## Important Button directive
+#############################################################################
+
+ImportantButtonDirective = ($rootscope, $loading, $template, $modelTransform) ->
+    template = $template.get("common/components/important-button.html")
+
+    link = ($scope, $el, $attrs, $model) ->
+        isEditable = ->
+            return $scope.project.my_permissions.indexOf("modify_us") != -1
+
+        save = (is_important) ->
+              currentLoading = undefined
+              transform = undefined
+              currentLoading = $loading().target($el.find('a')).start()
+              transform = $modelTransform.save((us) ->
+                us.is_important = is_important
+                us
+              )
+              transform.then ((_this) ->
+                ->
+                  currentLoading.finish()
+                  $rootscope.$broadcast 'object:updated'
+              )(this)
+              transform.then null, ->
+                currentLoading.finish()
+                $confirm.notify 'error'
+
+        $scope.$watch $attrs.ngModel, (item) ->
+            return if not item
+
+            if isEditable()
+                $el.find('.item-important').addClass('editable')
+            if item.is_important
+                $el.find('.item-important').removeClass('is-active')
+                $el.find('.item-unimportant').addClass('is-active')
+            else
+                $el.find('.item-important').addClass('is-active')
+                $el.find('.item-unimportant').removeClass('is-active')
+
+        $el.on 'click', '.item-important', (event) ->
+              $scope.us.is_important = !$scope.us.is_important
+              save $scope.us.is_important
+
+        $el.on "click", ".item-unimportant", (event) ->
+              $scope.us.is_important = !$scope.us.is_important
+              save $scope.us.is_important
+
+        $scope.$on "$destroy", ->
+            $el.off()
+
+    return {
+        link: link
+        restrict: "EA"
+        require: "ngModel"
+        template: template
+    }
+
+module.directive("tgImportantButton", ["$rootScope", "$tgLoading", "$tgTemplate", "$tgQueueModelTransformation", ImportantButtonDirective])
 
 #############################################################################
 ## Delete Button directive

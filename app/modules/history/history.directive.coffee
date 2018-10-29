@@ -1,5 +1,5 @@
 ###
-# Copyright (C) 2014-2018 Taiga Agile LLC
+# Copyright (C) 2014-2017 Taiga Agile LLC <taiga@taiga.io>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -14,14 +14,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-# File: history/history.directive.coffee
+# File: history.directive.coffee
 ###
 
 module = angular.module('taigaHistory')
 
-HistorySectionDirective = () ->
+HistorySectionDirective = ($rootscope) ->
     link = (scope, el, attr, ctrl) ->
-        scope.$on "object:updated", -> ctrl._loadHistory(scope.type, scope.id)
+        scope.$on "object:updated", ->
+            ctrl._loadHistory(scope.type, scope.id)
+
+        $rootscope.$on "story:details",(ctx,params) ->
+            scope.id = params.us.id
+            scope.vm.id = scope.id
+            ctrl._loadHistory(scope.type, scope.id)
 
     return {
         link: link,
@@ -39,4 +45,4 @@ HistorySectionDirective = () ->
 
 HistorySectionDirective.$inject = []
 
-module.directive("tgHistorySection", HistorySectionDirective)
+module.directive("tgHistorySection", ["$rootScope", HistorySectionDirective])

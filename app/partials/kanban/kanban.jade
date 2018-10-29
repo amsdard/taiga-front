@@ -22,7 +22,9 @@ div.wrapper(
           on-remove-filter="ctrl.removeFilter(filter)"
           on-change-q="ctrl.changeQ(q)"
         )
-
+        tg-userstory-sidebar(
+          open="{{ctrl.openSidebar}}"
+        )
         .kanban-header
             include ../includes/components/mainTitle
             .taskboard-actions
@@ -37,6 +39,12 @@ div.wrapper(
                 )
                     span.filter-num(ng-if="ctrl.selectedFilters.length") {{ctrl.selectedFilters.length}}
                     tg-svg(svg-icon="icon-filters")
+
+                button.button-filter.e2e-open-filter(
+                    ng-click="ctrl.deploy()"
+                    title="DEPLOY"
+                )
+                    tg-svg(svg-icon="icon-check")
 
         include ../includes/modules/kanban-table
 

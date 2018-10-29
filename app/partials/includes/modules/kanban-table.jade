@@ -88,7 +88,7 @@ div.kanban-table(
                     zoom="ctrl.zoom"
                     zoom-level="ctrl.zoomLevel"
                     archived="ctrl.isUsInArchivedHiddenStatus(us.get('id'))"
-                    ng-click="($event.ctrlKey || $event.metaKey) && ctrl.toggleSelectedUs(us.get('id'))"
+                    ng-click="($event.shiftKey) && ctrl.shiftSelectedUs(us.get('id')); ($event.ctrlKey || $event.metaKey) && ctrl.toggleSelectedUs(us.get('id')); !($event.shiftKey || $event.ctrlKey || $event.metaKey) && ctrl.userStoryDetails(us.get('id')) "
                 )
 
                 div.kanban-column-intro(ng-if="s.is_archived", tg-kanban-archived-status-intro="s")

@@ -1,0 +1,90 @@
+doctype html
+
+div.sidebar(
+    tg-kanban,
+    ng-controller="KanbanController as ctrl"
+    ng-init="section='kanban'"
+    ui-if="sidebarOpen"
+)
+    div.title
+        {{ 'COMMON.USSIDEBAR.TITLE' | translate }}
+
+
+    div.subject(
+            ng-class="{ 'subject-blocked': us.is_blocked, 'subject-important': us.is_important }"
+    )
+        a(
+            href="us/{{ us.ref }}"
+            tg-ctrl-click-disable
+            title="#{{ us.ref }} {{ us.subject }}"
+        )
+             # {{ us.ref }} - {{ us.subject }}
+
+        div.closing
+            label.close(
+                ng-click="ctrl.openSidebar; vm.closeSidebar()"
+                title="Close Sidebar"
+            )
+                tg-svg.close(svg-icon="icon-close")
+
+    div.desc
+        textarea.box(
+            id="description-box"
+            placeholder="Empty description"
+        )
+             {{ us.description }}
+        label.save-desc(
+                title="Save"
+        )
+            tg-svg.save(svg-icon="icon-save")
+
+    div.custom-attr
+        tg-custom-attributes-values(
+            ng-model="us"
+            type="userstory"
+            project="project"
+            required-edition-perm="modify_us"
+        )
+
+    tg-history-section(
+        ui-if="us"
+        ng-if="us"
+        type="us"
+        name="us"
+        id="us.id"
+        project-id="projectId"
+    )
+
+    tg-attachments-full(
+            obj-id="us.id"
+            type="us",
+            project-id="projectId"
+            edit-permission = "modify_us"
+        )
+
+    div.buttons
+        label.button-gray.team-requirement.ico(
+            for="team_requirement"
+            title="{{ 'COMMON.TEAM_REQUIREMENT' | translate }}"
+            ng-class="{ 'active': us.team_requirement }"
+        )
+            tg-svg(svg-icon="icon-team-requirement")
+
+        label.button-gray.client-requirement.ico(
+            for="client_requirement"
+            title="{{ 'COMMON.CLIENT_REQUIREMENT' | translate }}"
+            ng-class="{ 'active': us.client_requirement }"
+        )
+            tg-svg(svg-icon="icon-client-requirement")
+
+        label.button-gray.is-blocked.ico(
+            title="{{ 'COMMON.BLOCK_TITLE' | translate }}"
+            ng-class="{ 'active': us.is_blocked, 'item-block': !us.is_blocked }"
+        )
+            tg-svg(svg-icon="icon-lock")
+
+        label.button-gray.is-important.ico(
+            title="{{ 'COMMON.IMPORTANT_TITLE' | translate }}"
+            ng-class="{ 'active': us.is_important, 'item-block': !us.is_important }"
+        )
+            tg-svg(svg-icon="icon-powerful")
